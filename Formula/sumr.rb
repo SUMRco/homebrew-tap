@@ -26,9 +26,25 @@ class Sumr < Formula
 
   def install
     bin.install Dir["sumr-*"][0] => "sumr"
+
+    (bin/"_sumr_cli").write <<~SH
+      #!/bin/bash
+      exec "#{bin}/sumr" "$@"
+    SH
+
+    (bin/"_sumr").write <<~SH
+      #!/bin/bash
+      "#{bin}/_sumr_cli" "$@"
+      _sumr_rc=$?
+      return $_sumr_rc 2>/dev/null || exit $_sumr_rc
+    SH
+
+    chmod 0755, bin/"_sumr_cli"
+    chmod 0755, bin/"_sumr"
   end
 
   test do
     system "#{bin}/sumr", "--version"
+    system "#{bin}/_sumr", "--version"
   end
 end
