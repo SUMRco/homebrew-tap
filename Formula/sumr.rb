@@ -1,26 +1,26 @@
 class Sumr < Formula
   desc "SUMR CLI"
   homepage "https://sumr.co"
-  version "0.4.8"
+  version "0.4.9"
   license "Proprietary"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.8/sumr-darwin-arm64.tar.gz"
-      sha256 "6827a0dc15b0c77ea8149197c7f33e2485f7ed676b0be965a41365b8e544bd15"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.9/sumr-darwin-arm64.tar.gz"
+      sha256 "3a589c3c0c9a25b8440095967a9e4af75e852d230409c467d3689e2d164b4d9b"
     else
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.8/sumr-darwin-x64.tar.gz"
-      sha256 "acc87a9b1e79648afac842897eed1b7f30cf20bef94362beeb5ca751f456b2a8"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.9/sumr-darwin-x64.tar.gz"
+      sha256 "abee995b815be92afe8a51f3fb18d7514fada1050cd5b6da348f359fd7266c9d"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.8/sumr-linux-arm64.tar.gz"
-      sha256 "d8e1eed3300cab55685d91431f09471336915a31b538d91f84f29936d1e42895"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.9/sumr-linux-arm64.tar.gz"
+      sha256 "b1ca32749bfa7bc039e91cf6a5c40e98c499b1f9862cf6c4fc10d7b5b9f6f1a3"
     else
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.8/sumr-linux-x64.tar.gz"
-      sha256 "2c72ea157cbe44409c839547898f64552891d34367ce0a66372ddebabe24233b"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.4.9/sumr-linux-x64.tar.gz"
+      sha256 "a46bfdb3a1ff41e408d8c87a11e46446add1e288df53d4e8be82056136d501f2"
     end
   end
 
