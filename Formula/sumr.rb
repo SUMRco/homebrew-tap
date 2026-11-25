@@ -1,26 +1,26 @@
 class Sumr < Formula
   desc "SUMR CLI"
   homepage "https://sumr.co"
-  version "0.5.0"
+  version "0.6.0"
   license "Proprietary"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.5.0/sumr-darwin-arm64.tar.gz"
-      sha256 "8acd0c31915c5917209a528510ba406bca88a497ef6c74d9905e921cb425fe72"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.6.0/sumr-darwin-arm64.tar.gz"
+      sha256 "6f918fd79b206a7ba86f51190e915f5a9cf75001a627d597b8e22536ffd61738"
     else
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.5.0/sumr-darwin-x64.tar.gz"
-      sha256 "ef21e4fa05e9d0a8ac86287eb62fcb454cf22c510bfe689638b6a5c6c028f7c9"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.6.0/sumr-darwin-x64.tar.gz"
+      sha256 "18db5b198b50f52d6c49e3b2ee6588cae298aec45bf8ea7d5651cd2758bd7c66"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.5.0/sumr-linux-arm64.tar.gz"
-      sha256 "bd784b73132614616b43b47bf6d9737f13d301397630a01a59dff6be5c3bbc87"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.6.0/sumr-linux-arm64.tar.gz"
+      sha256 "0c3c52e7ada426ad31f14c6ce0d8294ea2f4f0ab956d7279d933bb70f0ac7628"
     else
-      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.5.0/sumr-linux-x64.tar.gz"
-      sha256 "2b81e01208ddcd4459c88d3e84140624aef912bc0a20b378efcf963d8172ddd1"
+      url "https://github.com/SUMRco/homebrew-tap/releases/download/sumr-v0.6.0/sumr-linux-x64.tar.gz"
+      sha256 "837a246bffc050c717e5d8169acab034311c0c36f234823aa2897db90b2976cb"
     end
   end
 
@@ -29,13 +29,13 @@ class Sumr < Formula
 
     (bin/"_sumr_cli").write <<~SH
       #!/bin/bash
-      exec "#{bin}/sumr" ""
+      exec "#{bin}/sumr" "$@"
     SH
 
     (bin/"_sumr").write <<~SH
       #!/bin/bash
-      "#{bin}/_sumr_cli" ""
-      _sumr_rc=0
+      "#{bin}/_sumr_cli" "$@"
+      _sumr_rc=$?
       return $_sumr_rc 2>/dev/null || exit $_sumr_rc
     SH
 
@@ -44,7 +44,10 @@ class Sumr < Formula
   end
 
   test do
-    system "#{bin}/sumr", "--version"
-    system "#{bin}/_sumr", "--version"
+    version_output = shell_output("#{bin}/sumr --version")
+    assert_match version.to_s, version_output
+    assert_equal version_output, shell_output("#{bin}/_sumr_cli --version")
+    assert_equal version_output, shell_output("#{bin}/_sumr --version")
+    shell_output("#{bin}/_sumr sumr-formula-test-unknown-command 2>&1", 1)
   end
 end
